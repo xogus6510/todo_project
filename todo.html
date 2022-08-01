@@ -44,13 +44,13 @@
                     addTodoItem() {
                         if (this.newTodoItem !== '') {
 
-                            const value = {
+                           /* const value = {
                                 item: this.newtodoItem,
-                                date: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
-                            }
+                                date: this.newtodoItem,
+                            }*/
 
                             // setItem 이라는 method 속에 key, value를 전달
-                            localStorage.setItem(this.newTodoItem, JSON.stringify(value))
+                            localStorage.setItem(`${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}-${new Date().getHours()}-${new Date().getMinutes()}-${new Date().getSeconds()}` , this.newTodoItem);
                             this.clearInput()
 
                         }
@@ -64,7 +64,7 @@
 
             const routes = [
                 {
-                    path: "/2",
+                    path: "/",
                     component: All
                 }, {
                     path: "/done",
