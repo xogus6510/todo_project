@@ -46,7 +46,7 @@
 
                            const value = {
                                 item: this.newTodoItem,
-                                date: 'test',
+                                date: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}-${new Date().getHours()}-${new Date().getMinutes()}-${new Date().getSeconds()}`,
                             }
 
                             // setItem 이라는 method 속에 key, value를 전달
