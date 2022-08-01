@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <script src="https://unpkg.com/vue@next"></script>
+        <script src="https://unpkg.com/vue-router@4"></script>
+        <script src="./all.js"></script>
+        <script src="./done.js"></script>
+        <script src="./undone.js"></script>
+    </head>
+    <body>
+
+        <div id="app">
+            <h1>{{ main }}</h1>
+            <router-link to="/">All</router-link>
+            &nbsp;
+            <router-link to="/done">Done</router-link>
+            &nbsp;
+            <router-link to="/undone">Undone</router-link>
+
+            <input >
+            <button @click="add">add</button>
+            <h1>{{todo}}</h1>
+            <router-view></router-view>
+
+            <input
+                type="text"
+                class="add__input"
+                placeholder="Enter your task"
+                v-model="newTodoItem"
+                @keyup.enter="addTodoItem"/>
+            <button class="add__button" @click="addTodoItem">Add</button>
+        </div>
+
+        <script>
+
+            const app = Vue.createApp({
+                data() {
+                    return {main: "To Do List", todo: "1", newTodoItem: ''}
+                },
+                methods: {
+                    add() {
+                        this.todo = this.todo;
+                    },
+                    addTodoItem() {
+                        if (this.newTodoItem !== '') {
+
+                            const value = {
+                                item: this.newtodoItem,
+                                date: `${new Date().getMonth() + 1}/${new Date().getDate()}`,
+                                compeleted: false
+                            }
+
+                            // setItem 이라는 method 속에 key, value를 전달
+                            localStorage.setItem(this.newTodoItem, JSON.stringify(value))
+                            this.clearInput()
+
+                        }
+                    },
+
+                    clearInput() {
+                        this.newTodoItem = ''
+                    }
+
+                }
+            });
+
+            const routes = [
+                {
+                    path: "/",
+                    component: All
+                }, {
+                    path: "/done",
+                    component: Done
+                }, {
+                    path: "/undone",
+                    component: Undone
+                }
+            ];
+
+            const router = VueRouter.createRouter(
+                {history: VueRouter.createWebHistory(), routes}
+            )
+
+            app.use(router)
+            app.mount('#app')
+        </script>
+
+    </body>
+</html>
