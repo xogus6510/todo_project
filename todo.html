@@ -46,8 +46,7 @@
 
                             const value = {
                                 item: this.newtodoItem,
-                                date: `${new Date().getMonth() + 1}/${new Date().getDate()}`,
-                                compeleted: false
+                                date: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
                             }
 
                             // setItem 이라는 method 속에 key, value를 전달
@@ -56,7 +55,6 @@
 
                         }
                     },
-
                     clearInput() {
                         this.newTodoItem = ''
                     }
@@ -66,7 +64,7 @@
 
             const routes = [
                 {
-                    path: "/",
+                    path: "/2",
                     component: All
                 }, {
                     path: "/done",
@@ -78,7 +76,7 @@
             ];
 
             const router = VueRouter.createRouter(
-                {history: VueRouter.createWebHistory(), routes}
+                {history: VueRouter.createWebHashHistory(), routes}
             )
 
             app.use(router)
