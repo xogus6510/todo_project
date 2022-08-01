@@ -44,13 +44,13 @@
                     addTodoItem() {
                         if (this.newTodoItem !== '') {
 
-                           /* const value = {
-                                item: this.newtodoItem,
-                                date: this.newtodoItem,
-                            }*/
+                           const value = {
+                                item: this.newTodoItem,
+                                date: 'test',
+                            }
 
                             // setItem 이라는 method 속에 key, value를 전달
-                            localStorage.setItem(`${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}-${new Date().getHours()}-${new Date().getMinutes()}-${new Date().getSeconds()}` , this.newTodoItem);
+                            localStorage.setItem(`${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}-${new Date().getHours()}-${new Date().getMinutes()}-${new Date().getSeconds()}` , JSON.stringify(value));
                             this.clearInput()
 
                         }
