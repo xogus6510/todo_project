@@ -20,31 +20,27 @@
             <router-link to="/done">Done</router-link>
             &nbsp;
             <router-link to="/undone">Undone</router-link>
-
-            <input >
-            <button @click="add">add</button>
-            <h1>{{todo}}</h1>
-            <router-view></router-view>
-
+            <br><br>
+            <!-- TODO 입력 -->
             <input
                 type="text"
-                class="add__input"
-                placeholder="Enter your task"
+                placeholder="Add a new task"
                 v-model="newTodoItem"
                 @keyup.enter="addTodoItem"/>
+
             <button class="add__button" @click="addTodoItem">Add</button>
+
+            <router-view></router-view>
+
         </div>
 
         <script>
 
             const app = Vue.createApp({
                 data() {
-                    return {main: "To Do List", todo: "1", newTodoItem: ''}
+                    return {main: "To Do List", newTodoItem: ''}
                 },
                 methods: {
-                    add() {
-                        this.todo = this.todo;
-                    },
                     addTodoItem() {
                         if (this.newTodoItem !== '') {
 
@@ -91,3 +87,6 @@
 
     </body>
 </html>
+<!-- https://code-hoon.tistory.com/194 글 제목 [ Vue.js ] LocalStorage 이용하는 방법,
+예제-->
+<!-- https://nykim.work/75 [Vue/Vuex] 뷰 실습 - Todo 웹앱 만들기 -->
