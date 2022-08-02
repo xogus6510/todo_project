@@ -42,13 +42,17 @@
                 },
                 methods: {
                     addTodoItem() {
+                       
+
                         if (this.newTodoItem !== '') {
 
-                            //const num = ({
-                            //    num : this.test.length
-                            //})
-                            //console.log(num.num);
-                            //localStorage.setItem("num" , JSON.stringify(num));
+                            /*if(JSON.parse(localStorage.getItem("test") !== null)){
+                                console.log("null 아님"); 
+                                this.test.push(JSON.parse(localStorage.getItem("test")));
+                            }else{
+                                console.log("null 임");
+                            }*/
+
 
                             this.test.push({
                                 id: this.test.length,
@@ -57,16 +61,24 @@
                             });
 
                             const value = ({
+                                id: localStorage.length,
                                 item: this.newTodoItem,
-                                date: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}-${new Date().getHours()}-${new Date().getMinutes()}-${new Date().getSeconds()}`
+                                date: `${new Date().getFullYear()}-${new Date().getMonth() + 1}`
                             });
 
                             // setItem 이라는 method 속에 key, value를 전달
                             //localStorage.setItem("test", JSON.stringify(value));
-                            localStorage.setItem("missions" , JSON.stringify(this.test));
+                        
+                            localStorage.setItem(localStorage.length, JSON.stringify(value));
+                           //localStorage.setItem("missions" , JSON.stringify({"id":0,"text":"fdsfd","condition":true}));
                             this.clearInput()
+                            // const tasks = JSON.parse(localStorage.getItem("missions"));
+                       // console.log(tasks + "출력하기");
 
                         }
+
+                           
+                        
                     },
                     clearInput() {
                         this.newTodoItem = ''
