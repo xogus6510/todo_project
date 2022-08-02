@@ -10,12 +10,13 @@ const All = {
     data() {
         return {todoItems: []};
     },
+    props:['todoItems'],
     methods: {
         deleteTodoItem: function(todoItem, index) {
             localStorage.removeItem(todoItem.id);
             this.todoItems.splice(index, 1);
         }
-    }, props: ['propsdata'],
+    },
     created: function() {
         if (localStorage.length > 0) {
             for (let i = 0; i < localStorage.length; i++) {

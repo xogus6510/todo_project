@@ -30,14 +30,14 @@
 
             <button class="add__button" @click="addTodoItem">Add</button>
             <router-view></router-view>
-            <All></All>
+            <All v-bind:prosdata="todoItems"></All>
 
         </div>
 
         <script>
             const app = Vue.createApp({
                 data() {
-                    return {main: "To Do List", newTodoItem: ''};
+                    return {main: "To Do List", newTodoItem: '', todoItems:[]};
                 },
                 methods: {
                     addTodoItem() {
@@ -49,16 +49,16 @@
                             });
                             localStorage.setItem(localStorage.length, JSON.stringify(value));
                             this.clearInput()
+                            this.todoItems.push(value);
                         }
                     },
                     clearInput() {
                         this.newTodoItem = ''
                     }
-
                 },
-    components: {
-        'All': All,
-    }
+                components: {
+                     'All': All,
+                }
             });
 
             const routes = [

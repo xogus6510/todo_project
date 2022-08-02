@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <script src="https://unpkg.com/vue@next"></script>
+        <script src="https://unpkg.com/vue-router@4"></script>
+
+        <script src="./todofooter.js"></script>
+        <script src="./todoheader.js"></script>
+        <script src="./todoinput.js"></script>
+        <script src="./todolist.js"></script>
+
+    </head>
+    <body>
+
+        <div id="app">
+
+            <todoheader></todoheader>
+            <todoinput v-on:addtodo="addtodo"></todoinput>
+            <todolist v-bind:propsdata="todoItems" v-on:removetodo="removeTodo"></todolist>
+            <todofooter v-on:removeall="clearAll"></todofooter>
+        </div>
+
+        <script>
+            const app = Vue.createApp({
+                data() {
+                    return {todoItems: []};
+                },
+                created() {
+                    if (localStorage.length > 0) {
+                        for (var i = 0; i < localStorage.length; i++) {
+                            this
+                                .todoItems
+                                .push(localStorage.key(i));
+                        }
+                    }
+                },
+                methods: {
+                    addtodo(todoItem) {
+                        //로컬스토리지에 데이터를 추가하는 로직
+                        localStorage.setItem(todoItem, todoItem);
+                        this
+                            .todoItems
+                            .push(todoItem);
+                    },
+                    removeTodo() {
+                        localStorage.removeItem(todoItem);
+                        this
+                            .todoItems
+                            .splice(index, 1);
+                    },
+                    clearAll() {
+                        //로컬스토리지 전체 삭제, todoItems 초기화
+                        localStorage.clear();
+                        this.todoItems = [];
+                    }
+                },
+                components: {
+
+                    'Todoheader': Todoheader,
+                    'Todoinput': Todoinput,
+                    'Todolist': Todolist,
+                    'Todofooter': Todofooter
+                }
+            });
+
+            app.mount('#app')
+        </script>
+
+    </body>
+</html>
+<!-- https://code-hoon.tistory.com/194 글 제목 [ Vue.js ] LocalStorage 이용하는 방법,
+예제-->
+<!-- https://nykim.work/75 [Vue/Vuex] 뷰 실습 - Todo 웹앱 만들기 -->
