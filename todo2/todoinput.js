@@ -14,9 +14,7 @@ const Todoinput = {
             console.log("input");
             if (this.newTodoItem !== '') {
                 //inputbox에 입력된 텍스트의 앞, 뒤 공백문자열 제거
-                var value = this.newTodoItem && this
-                    .newTodoItem
-                    .trim();
+                var value = this.newTodoItem && this.newTodoItem.trim();
                 //App컴포넌트로 이벤트 전달
                 this.$emit('addtodo', value);
                 //inputbox 초기화

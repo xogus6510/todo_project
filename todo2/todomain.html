@@ -20,17 +20,22 @@
             
             <todoheader></todoheader>
             <todoinput v-on:addtodo="addtodo"></todoinput>
+            <!--todoItems의 데이터를 todolist 컴포넌트로 props-->
             <todolist v-bind:propsdata="todoItems" v-on:aa="aa"></todolist>
             <todofooter v-on:removeall="clearAll"></todofooter>
        
         </div>
 
         <script>
+            //현재시간
+            const time = new Date(+new Date() + 3240 * 10000).toISOString().replace("T", " ").replace(/\..*/, '');
+
             const app = Vue.createApp({
                 data() {
                     return {todoItems: []};
                 },
                 created() {
+                    //로컬스토리지에 저장된 데이터를 가져와서 todoItems에 넣어줌
                     if (localStorage.length > 0) {
                         for (var i = 0; i < localStorage.length; i++) {
                             this
@@ -40,12 +45,15 @@
                     }
                 },
                 methods: {
-                    addtodo(todoItem) {
-                        //로컬스토리지에 데이터를 추가하는 로직
-                        localStorage.setItem(todoItem, todoItem);
-                        this
-                            .todoItems
-                            .push(todoItem);
+                    //로컬스토리지에 저장하는 함수
+                    addtodo(value) {
+                         const inputdata = ({
+                                id: localStorage.length,
+                                item: value,
+                                date: time
+                            });
+                        localStorage.setItem(localStorage.length, JSON.stringify(inputdata));
+                        this.todoItems.push(JSON.stringify(inputdata));
                     },
                     aa(todoItem, index) {
                         console.log('1번')
