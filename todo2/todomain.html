@@ -35,6 +35,7 @@
                     return {todoItems: []};
                 },
                 created() {
+        
                     //로컬스토리지에 이전 데이터가 저장되어 있다면 가져와서 todoItems에 저장
                     if (localStorage.length > 0) {
                         for (var i = 0; i < localStorage.length; i++) {
@@ -43,6 +44,7 @@
                                 .push(JSON.parse(localStorage.getItem(localStorage.key(i))));
                         }
                     }
+                    console.log(JSON.stringify(this.todoItems) + "credted");
                 },
                 methods: {
                     //로컬스토리지에 저장하는 함수
@@ -53,8 +55,12 @@
                                 item: value,
                                 date: time
                             });
+
+                        console.log(JSON.stringify(inputdata) + "addtodo");
+                        Object.assign(inputdata, this.todoItems);
+                         console.log(JSON.stringify(inputdata) + "addtodo2");
                         //로컬스토리지에 저장
-                        localStorage.setItem(localStorage.length, JSON.stringify(inputdata));
+                        localStorage.setItem('test', JSON.stringify(inputdata));
                         //todoItems에 저장
                         this.todoItems.push(JSON.parse(JSON.stringify(inputdata)));
                     },
