@@ -3,7 +3,7 @@ const Todolist = {
     <section>
     <ul>
         <li v-for="(todoItem, index) in propsdata" :key="todoItem">
-            {{ todoItem }}
+            {{ todoItem.id }}{{todoItem.item}}{{todoItem.date}}
             <button type="button" v-on:click="removetodo(todoItem, index)">삭제</button>
         </li>
     </ul>

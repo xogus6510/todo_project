@@ -35,26 +35,30 @@
                     return {todoItems: []};
                 },
                 created() {
-                    //로컬스토리지에 저장된 데이터를 가져와서 todoItems에 넣어줌
+                    //로컬스토리지에 이전 데이터가 저장되어 있다면 가져와서 todoItems에 저장
                     if (localStorage.length > 0) {
                         for (var i = 0; i < localStorage.length; i++) {
                             this
                                 .todoItems
-                                .push(localStorage.key(i));
+                                .push(JSON.parse(localStorage.getItem(localStorage.key(i))));
                         }
                     }
                 },
                 methods: {
                     //로컬스토리지에 저장하는 함수
                     addtodo(value) {
+                        console.log('addtodo 함수실행' + value);
                          const inputdata = ({
                                 id: localStorage.length,
                                 item: value,
                                 date: time
                             });
+                        //로컬스토리지에 저장
                         localStorage.setItem(localStorage.length, JSON.stringify(inputdata));
-                        this.todoItems.push(JSON.stringify(inputdata));
+                        //todoItems에 저장
+                        this.todoItems.push(JSON.parse(JSON.stringify(inputdata)));
                     },
+                    //로컬스토리지에서 삭제하는 함수
                     aa(todoItem, index) {
                         console.log('1번')
                         localStorage.removeItem(todoItem);
