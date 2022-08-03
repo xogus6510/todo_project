@@ -12,8 +12,7 @@ const Todolist = {
   methods: {
       removetodo(todoItem, index) {
             console.log('2번' + todoItem + index);
-            this.$emit('removetodo');
-           // localStorage.removeItem(todoItem);
+            this.$emit('aa', todoItem, index);
                     
       }
   } 

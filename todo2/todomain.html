@@ -17,10 +17,10 @@
     <body>
 
         <div id="app">
-
+            
             <todoheader></todoheader>
             <todoinput v-on:addtodo="addtodo"></todoinput>
-            <todolist v-bind:propsdata="todoItems" v-on:removetodo="remove-todo"></todolist>
+            <todolist v-bind:propsdata="todoItems" v-on:aa="aa"></todolist>
             <todofooter v-on:removeall="clearAll"></todofooter>
        
         </div>
@@ -47,12 +47,12 @@
                             .todoItems
                             .push(todoItem);
                     },
-                    removetodo() {
+                    aa(todoItem, index) {
                         console.log('1번')
-                        /*localStorage.removeItem(todoItem);
+                        localStorage.removeItem(todoItem);
                         this
                             .todoItems
-                            .splice(index, 1);*/
+                            .splice(index, 1);
                     },
                     clearAll() {
                         //로컬스토리지 전체 삭제, todoItems 초기화
