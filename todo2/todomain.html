@@ -21,7 +21,7 @@
             <todoheader></todoheader>
             <todoinput v-on:addtodo="addtodo"></todoinput>
             <!--todoItems의 데이터를 todolist 컴포넌트로 props-->
-            <todolist v-bind:propsdata="todos" v-on:removetodo="removetodo"></todolist>
+            <todolist v-bind:propsdata="todos" v-on:removetodo="removetodo"v-on:edittodo="edittodo"></todolist>
             <todofooter v-on:cleartodo="clearAll"></todofooter>
 
         </div>
@@ -92,6 +92,9 @@
                     clearAll() {
                         //로컬스토리지 전체 삭제, todoItems 초기화
                         this.todos = [];
+                    },
+                    edittodo(todoItem){
+                        console.log('edit 함수실행' + todoItem);
                     }
                 },
                 components: {
