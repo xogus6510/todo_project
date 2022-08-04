@@ -1,10 +1,11 @@
 const Todoinput = {
     template: `
     <div>
-    <input type="text" v-model="newTodoItem" v-on:keyup.enter="addtodo">
-    <button v-on:click="addtodo">추가</button>
+    <input type="text" v-model="newTodoItem" v-on:keyup.enter="addtodo"  >
+    <button v-on:click="addtodo" Value="Add" v-show="propsinput === false">추가</button>
+    <button Value="Edit" v-show="propsinput === true">수정</button>
 </div>
-  `,
+  `, props: ['propsinput'],
     data() {
         return {newTodoItem: ''};
     },
