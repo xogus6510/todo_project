@@ -17,72 +17,77 @@
     <body>
 
         <div id="app">
-            
+
             <todoheader></todoheader>
             <todoinput v-on:addtodo="addtodo"></todoinput>
             <!--todoItems의 데이터를 todolist 컴포넌트로 props-->
             <todolist v-bind:propsdata="todos" v-on:removetodo="removetodo"></todolist>
             <todofooter v-on:cleartodo="clearAll"></todofooter>
-       
+
         </div>
 
         <script>
 
             var STORAGE_KEY = 'todolist'
             var todoStorage = {
-            fetch: function() {
-                var todos = JSON.parse(
-                localStorage.getItem(STORAGE_KEY) || '[]'
-                )
-                todos.forEach(function(todo, index) {
-                todo.id = index
-                })
-                todoStorage.uid = todos.length
-                return todos
-            },
-            save: function(todos) {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
-            }
+                fetch: function () {
+                    var todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
+                    todos.forEach(function (todo, index) {
+                        todo.id = index
+                    })
+                    todoStorage.uid = todos.length
+                    return todos
+                },
+                save: function (todos) {
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
+                }
             }
 
-
-            //현재시간
-            const time = new Date(+new Date() + 3240 * 10000).toISOString().replace("T", " ").replace(/\..*/, '');
             const app = Vue.createApp({
                 data() {
-                    return {todos : []};
+                    return {todos: []};
                 },
                 created() {
                     this.todos = todoStorage.fetch();
-                    console.log(JSON.stringify(this.todoItems) + "credted");
                 },
                 watch: {
                     // 옵션을 사용하는 경우, 객체 형식으로 지정합니다.
                     todos: {
                         // 매개 변수로는 속성의 변경 후 값이 들어옵니다.
-                        handler: function(todos) {
-                        todoStorage.save(todos)
+                        handler: function (todos) {
+                            todoStorage.save(todos)
                         },
                         // deep 옵션으로 내부의 데이터까지 감시
                         deep: true
-                    }  
+                    }
                 },
                 methods: {
                     //로컬스토리지에 저장하는 함수
                     addtodo(value) {
+                        //현재시간
+                        const time = new Date(+new Date() + 3240 * 10000)
+                            .toISOString()
+                            .replace("T", " ")
+                            .replace(/\..*/, '');
                         console.log('addtodo 함수실행' + value);
-                         const inputdata = ({
-                                id: localStorage.length,
-                                item: value,
-                                date: time
-                            });
-                        this.todos.push(JSON.parse(JSON.stringify(inputdata)));
+                        const inputdata = ({
+                            id: todoStorage.uid++,
+                            item: value,
+                            date: time
+                        });
+                        this
+                            .todos
+                            .push(JSON.parse(JSON.stringify(inputdata)));
                     },
                     //로컬스토리지에서 삭제하는 함수
-                    removetodo(todoItem, index) {
-                        var index = this.todos.indexOf(todoItem)
-                        this.todos.splice(index, 1)
-                      
+                    removetodo(todoItem) {
+                        var index = this
+                            .todos
+                            .indexOf(todoItem)
+                        console.log(index + "= index," + todoItem + "= todoItem");
+                        this
+                            .todos
+                            .splice(index, 1)
                     },
                     clearAll() {
                         //로컬스토리지 전체 삭제, todoItems 초기화
@@ -90,7 +95,6 @@
                     }
                 },
                 components: {
-
                     'Todoheader': Todoheader,
                     'Todoinput': Todoinput,
                     'Todolist': Todolist,

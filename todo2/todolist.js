@@ -2,8 +2,9 @@ const Todolist = {
     template: `
     <section>
     <ul>
-        <li v-for="(todoItem, index) in propsdata" :key="todoItem">
-            {{ todoItem.id }}{{todoItem.item}}{{todoItem.date}}
+        <li v-for="todoItem in propsdata" :key="todoItem.id">
+            
+            등록시간 : {{todoItem.date}} / {{todoItem.item}}
             <button type="button" v-on:click="removetodo(todoItem, index)">삭제</button>
         </li>
     </ul>
@@ -11,8 +12,8 @@ const Todolist = {
   `, props: ['propsdata'],
   methods: {
       removetodo(todoItem, index) {
-            console.log('2번' + todoItem.id + "=id" + index + "=index");
-            this.$emit('removetodo', todoItem.id, index);
+            console.log('삭제클릭 emit, ' + todoItem + "=id");
+            this.$emit('removetodo', todoItem);
                     
       }
   } 
