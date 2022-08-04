@@ -11,8 +11,8 @@ const Todolist = {
   `, props: ['propsdata'],
   methods: {
       removetodo(todoItem, index) {
-            console.log('2번' + todoItem.id + index);
-            this.$emit('aa', todoItem.id, index);
+            console.log('2번' + todoItem.id + "=id" + index + "=index");
+            this.$emit('removetodo', todoItem.id, index);
                     
       }
   } 

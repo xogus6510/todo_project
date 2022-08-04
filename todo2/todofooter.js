@@ -7,7 +7,7 @@ const Todofooter = {
   `,
     methods: {
         clearTodo() {
-            this.$emit('removeAll');
+            this.$emit('cleartodo');
         }
     }
 };
