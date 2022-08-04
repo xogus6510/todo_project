@@ -25,9 +25,9 @@
                     <button @click="filter = 'done'" class="p-2 px-4 sm:text-xl text-gray-400 cursor-pointer">Done</button>
                     <button @click="filter = 'undone'" class="p-2 px-4 sm:text-xl text-gray-400 cursor-pointer">Undone</button>
         </div>
-            <todoinput v-bind:propsinput="inputbtn" v-on:addtodo="addtodo"></todoinput>
+            <todoinput v-bind:propsinput="inputbtn" v-on:addtodo="addtodo" v-on:editfinish="editfinish"></todoinput>
             <!--todoItems의 데이터를 todolist 컴포넌트로 props-->
-            <todolist v-bind:propsdata="todos" v-on:removetodo="removetodo"v-on:edittodo="edittodo"></todolist>
+            <todolist v-bind:propsdata="todos" v-on:removetodo="removetodo" v-on:edittodo="edittodo"></todolist>
             <todofooter v-on:cleartodo="clearAll"></todofooter>
 
         </div>
@@ -102,7 +102,10 @@
                     edittodo(todoItem){
                         console.log('edit 함수실행' + todoItem);
                         this.inputbtn = true;
-                        //
+                    },
+                    editfinish(todoItem){
+                        console.log('editfinish 함수실행' + todoItem);
+                        this.inputbtn = false;
                     }
                 },
                 components: {

@@ -1,9 +1,9 @@
 const Todoinput = {
     template: `
     <div>
-    <input type="text" v-model="newTodoItem" v-on:keyup.enter="addtodo"  >
+    <input type="text" v-model="newTodoItem" v-on:keyup.enter="propsinput === false ? addtodo() : edittodo()"  >
     <button v-on:click="addtodo" Value="Add" v-show="propsinput === false">추가</button>
-    <button Value="Edit" v-show="propsinput === true">수정</button>
+    <button v-on:click="edittodo" Value="Edit" v-show="propsinput === true">수정</button>
 </div>
   `, props: ['propsinput'],
     data() {
@@ -21,6 +21,10 @@ const Todoinput = {
                 //inputbox 초기화
                 this.clearInputbox();
             }
+        },
+        edittodo() {
+            console.log("edit 함수실행");
+            this.$emit('editfinish');
         },
         clearInputbox() {
             this.newTodoItem = '';
