@@ -1,7 +1,8 @@
 const Todoinput = {
     template: `
     <div>
-    <input type="text" v-model="newTodoItem" v-on:keyup.enter="propsinput === false ? addtodo() : edittodo()"  >
+    <input type="text" v-model="newTodoItem" v-on:keyup.enter="propsinput === false ? addtodo() : edittodo()" placeholder="Add a new task">
+    
     <button v-on:click="addtodo" Value="Add" v-show="propsinput === false">추가</button>
     <button v-on:click="edittodo" Value="Edit" v-show="propsinput === true">수정</button>
 </div>
@@ -11,6 +12,7 @@ const Todoinput = {
     },
     methods: {
         addtodo() {
+            store.commit('editvalue', this.newTodoItem);
             console.log("add 함수실행");
             //inputbox 빈값인지 체크, 빈값이 아니면 로직 수행
             if (this.newTodoItem !== '') {

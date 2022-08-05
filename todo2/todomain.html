@@ -7,6 +7,7 @@
         <title>Document</title>
         <script src="https://unpkg.com/vue@next"></script>
         <script src="https://unpkg.com/vue-router@4"></script>
+        <script src="https://unpkg.com/vuex@4"></script>
 
         <script src="./todofooter.js"></script>
         <script src="./todoheader.js"></script>
@@ -27,13 +28,15 @@
         </div>
             <todoinput v-bind:propsinput="inputbtn" v-on:addtodo="addtodo" v-on:editfinish="editfinish"></todoinput>
             <!--todoItems의 데이터를 todolist 컴포넌트로 props-->
-            <todolist v-bind:propsdata="todos" v-on:removetodo="removetodo" v-on:edittodo="edittodo"></todolist>
+            <todolist v-bind:propsdata="todos" v-on:removetodo="removetodo" v-on:edittodo="edittodo" v-on:editinput="editinput"></todolist>
             <todofooter v-on:cleartodo="clearAll"></todofooter>
+            <div>{{$store.state.count }}</div>
+             <div>{{$store.state.newTodoItem}}</div>
 
         </div>
 
         <script>
-
+            //Local Storage에서 JSON 형식으로 입출력
             var STORAGE_KEY = 'todolist'
             var todoStorage = {
                 fetch: function () {
@@ -49,6 +52,27 @@
                 }
             }
 
+            //vuex 생성
+             const store = new Vuex.Store({
+                state: {
+                    count: 0,
+                    newTodoItem: ''
+                
+                },
+                mutations: {
+                    increment(state) {
+                        state.count++
+                    },
+                    editvalue(state, value){
+                        state.newTodoItem = value
+                    }
+
+                }
+            })
+            store.commit('increment')
+            console.log(store.state.count) // -> 1
+
+            //Create Vue Instance
             const app = Vue.createApp({
                 data() {
                     return {todos: [], inputbtn: false };
@@ -106,6 +130,9 @@
                     editfinish(todoItem){
                         console.log('editfinish 함수실행' + todoItem);
                         this.inputbtn = false;
+                    },
+                    editinput(todoItem){
+                        console.log('editinput 함수실행' + todoItem);
                     }
                 },
                 components: {
@@ -116,6 +143,7 @@
                 }
             });
 
+            app.use(store)
             app.mount('#app')
         </script>
 
