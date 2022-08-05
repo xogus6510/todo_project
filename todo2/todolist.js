@@ -17,6 +17,7 @@ const Todolist = {
                     
       },
       edittodo(todoItem) {
+           store.commit('editvalue', todoItem);
             console.log('수정클릭 emit, ' + todoItem + "=id");
           this.$emit('edittodo', todoItem); 
           this.$emit('editinput', todoItem); 
