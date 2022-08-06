@@ -22,6 +22,19 @@ button{
 	text-decoration:none;
 	text-shadow:0px 1px 0px #1570cd;
 }
+
+.all #allbtn{
+    background:linear-gradient(to bottom, #086fe6 5%, #3467bb 100%);
+}
+
+.done #donebtn{
+  background:linear-gradient(to bottom, #086fe6 5%, #3467bb 100%);
+}
+
+.undone #undonebtn{
+  background:linear-gradient(to bottom, #086fe6 5%, #3467bb 100%);
+}
+
 button:hover {
 	background:linear-gradient(to bottom, #1e62d0 5%, #3d94f6 100%);
 	background-color:#1e62d0;
@@ -36,13 +49,4 @@ button:active {
 input{
   margin : 10px;
   height: 25px;
-}
-.all{
-  background-color: #91c4ff;
-}
-.done{
-  background-color: #91ffbf;
-}
-.undone{
-  background-color: #fca1e5;
 }

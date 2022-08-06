@@ -21,15 +21,15 @@
         <div id="app">
             <todoheader></todoheader>
             <div :class="{'all' : filter === 'all' , 'done' : filter === 'done' , 'undone' : filter === 'undone'}">
-                <button @click="filter = 'all'" >All</button>
-                <button @click="filter = 'done'" >Done</button>
-                <button @click="filter = 'undone'" >Undone</button>
+                <button id="allbtn" @click="filter = 'all'" >All</button>
+                <button id="donebtn" @click="filter = 'done'" >Done</button>
+                <button id="undonebtn" @click="filter = 'undone'" >Undone</button>
             </div>
         
 
             <todoinput v-bind:propsinput="inputbtn" v-on:addtodo="addtodo" v-on:editfinish="editfinish"></todoinput>
             <!--todoItems의 데이터를 todolist 컴포넌트로 props-->
-            <todolist v-bind:propsdata="todos" v-bind:propsfilter="filter" v-on:removetodo="removetodo" v-on:edittodo="edittodo" v-on:editinput="editinput" v-on:cleartodo="clearAll"></todolist>
+            <todolist v-bind:propsdata="todos" v-bind:propsfilter="filter" v-on:changecondition="changecondition" v-on:removetodo="removetodo" v-on:edittodo="edittodo" v-on:editinput="editinput" v-on:cleartodo="clearAll"></todolist>
           
             <div>id값 : {{$store.state.id}}</div>
             <div>등록된글 : {{$store.state.newTodoItem}}</div>
@@ -132,6 +132,10 @@
                     },
                     editinput(todoItem){
                         console.log('editinput 함수실행' + todoItem);
+                    },
+                    changecondition(todoItem){
+                        console.log('함수실행');
+                        this.todos[this.$store.state.id].condition = !todoItem.condition
                     }
                 },
                 components: {

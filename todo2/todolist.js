@@ -1,26 +1,26 @@
 const Todolist = {
     template: `
-    <section> 
-    <table border="1" style="border-collapse:collapse;">
-	<th style="width : 150px;">등록시간</th>
-	<th style="width : 350px;">할 일</th>
-    <th style="width : 180px;">수정 / 삭제</th>
-	<tr v-for="todoItem, index in propsdata" :key="todoItem.id" v-show="propsfilter === 'all' ? true : (propsfilter === 'done' ? !todoItem.condition : todoItem.condition)">
-        <td>{{todoItem.date}}</td>
-	    <td>{{todoItem.item}}{{todoItem.condition}}</td>
-        <td>
-        <button type="button" @click="edittodo(todoItem.item, index)">수정</button>
-        <button type="button" @click="removetodo(todoItem)" >삭제</button>
-        </td>
-	</tr>
-    <tr>
-        <td colspan='3'>
-            <button type="button" v-on:click="clearTodo">전체삭제</button>
-        </td>
-    </tr>
-    </table>
-    <div> {{propsfilter}}</div>
-</section>
+    <section>
+        <div>{{propsfilter}}</div>
+        <table border="1" style="border-collapse:collapse;">
+            <th style="width : 150px;">등록시간</th>
+            <th style="width : 350px;">할 일</th>
+            <th style="width : 180px;">수정 / 삭제</th>
+            <tr v-for="todoItem, index in propsdata" :key="todoItem.id" v-show="propsfilter === 'all' ? true : (propsfilter === 'done' ? !todoItem.condition : todoItem.condition)">
+                <td>{{todoItem.date}}</td>
+                <td @click="changeCondition(todoItem, index)">{{todoItem.item}}{{todoItem.condition}}</td>
+                <td>
+                <button type="button" @click="edittodo(todoItem.item, index)">수정</button>
+                <button type="button" @click="removetodo(todoItem)" >삭제</button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan='3'>
+                    <button type="button" v-on:click="clearTodo">전체삭제</button>
+                </td>
+            </tr>
+        </table>
+    </section>
   `,
     props: ['propsdata', 'propsfilter'],
     methods: {
@@ -37,6 +37,11 @@ const Todolist = {
         },
         clearTodo() {
             this.$emit('cleartodo');
+        },
+        changeCondition(todoItem, id) {
+           console.log("todoItem.condition : " + todoItem.condition + " todoItem.id : " + id);
+           store.commit('editid', id);
+           this.$emit('changecondition', todoItem);
         }
         
     }
