@@ -9,10 +9,12 @@
         <script src="https://unpkg.com/vue-router@4"></script>
         <script src="https://unpkg.com/vuex@4"></script>
 
-        <script src="./todofooter.js"></script>
+      
         <script src="./todoheader.js"></script>
         <script src="./todoinput.js"></script>
         <script src="./todolist.js"></script>
+     
+        <link rel="stylesheet" type="text/css" href="./todo.css">
 
     </head>
     <body>
@@ -26,8 +28,8 @@
         </div>
             <todoinput v-bind:propsinput="inputbtn" v-on:addtodo="addtodo" v-on:editfinish="editfinish"></todoinput>
             <!--todoItems의 데이터를 todolist 컴포넌트로 props-->
-            <todolist v-bind:propsdata="todos" v-on:removetodo="removetodo" v-on:edittodo="edittodo" v-on:editinput="editinput"></todolist>
-            <todofooter v-on:cleartodo="clearAll"></todofooter>
+            <todolist v-bind:propsdata="todos" v-on:removetodo="removetodo" v-on:edittodo="edittodo" v-on:editinput="editinput" v-on:cleartodo="clearAll"></todolist>
+          
             <div>id값 : {{$store.state.id}}</div>
             <div>등록된글 : {{$store.state.newTodoItem}}</div>
         </div>
@@ -133,7 +135,6 @@
                     'Todoheader': Todoheader,
                     'Todoinput': Todoinput,
                     'Todolist': Todolist,
-                    'Todofooter': Todofooter
                 }
             });
 

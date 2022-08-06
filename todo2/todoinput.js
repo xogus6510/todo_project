@@ -2,7 +2,7 @@ const Todoinput = {
     template: `
     <div>
     <input type="text" v-model="newTodoItem" @keyup.enter="propsinput === false ? addtodo() : edittodo()" placeholder="Add a new task" v-show="propsinput === false">
-    <input type="text" v-model="$store.state.newTodoItem" v-show="propsinput === true">
+    <input id="inputtrue" type="text" v-model="$store.state.newTodoItem" v-show="propsinput === true">
     <button @click="addtodo" Value="Add" v-show="propsinput === false">추가</button>
     <button @click="edittodo" Value="Edit" v-show="propsinput === true">수정</button>
 </div>

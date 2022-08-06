@@ -1,0 +1,18 @@
+table, th, td{
+  margin : 10px;
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding : 10px;
+  text-align: center;
+}
+button{
+  margin : 10px;
+  
+}
+#inputtrue{
+  background-color: #91c4ff;
+}
+input{
+  margin : 10px;
+  height: 25px;
+}
