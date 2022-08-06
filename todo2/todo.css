@@ -44,9 +44,21 @@ button:active {
 	top:1px;
 }
 #inputtrue{
-  background-color: #91c4ff;
+  background-color: #ffbcb0;
 }
 input{
   margin : 10px;
   height: 25px;
+  width: 250px;
+}
+.condition{
+  text-decoration:line-through;
+}
+.truecolor{
+  background-color: #f75151;
+  padding: 3px;
+}
+.falsecolor{
+  background-color: #68ec4d;
+  padding: 3px;
 }
