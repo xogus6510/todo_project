@@ -2,12 +2,12 @@ const Todolist = {
     template: `
     <section> 
     <table border="1" style="border-collapse:collapse;">
-	<th>등록시간</th>
+	<th style="width : 150px;">등록시간</th>
 	<th style="width : 350px;">할 일</th>
-    <th>수정 / 삭제</th>
-	<tr v-for="todoItem, index in propsdata" :key="todoItem.id">
-	    <td>{{todoItem.date}}</td>
-	    <td>{{todoItem.item}}</td>
+    <th style="width : 180px;">수정 / 삭제</th>
+	<tr v-for="todoItem, index in propsdata" :key="todoItem.id" v-show="propsfilter === 'all' ? true : (propsfilter === 'done' ? !todoItem.condition : todoItem.condition)">
+        <td>{{todoItem.date}}</td>
+	    <td>{{todoItem.item}}{{todoItem.condition}}</td>
         <td>
         <button type="button" @click="edittodo(todoItem.item, index)">수정</button>
         <button type="button" @click="removetodo(todoItem)" >삭제</button>
@@ -19,9 +19,10 @@ const Todolist = {
         </td>
     </tr>
     </table>
+    <div> {{propsfilter}}</div>
 </section>
   `,
-    props: ['propsdata'],
+    props: ['propsdata', 'propsfilter'],
     methods: {
         removetodo(todoItem) {
             console.log('삭제클릭 emit, ' + todoItem + "=id");

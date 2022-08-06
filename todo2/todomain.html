@@ -9,7 +9,6 @@
         <script src="https://unpkg.com/vue-router@4"></script>
         <script src="https://unpkg.com/vuex@4"></script>
 
-      
         <script src="./todoheader.js"></script>
         <script src="./todoinput.js"></script>
         <script src="./todolist.js"></script>
@@ -21,17 +20,20 @@
 
         <div id="app">
             <todoheader></todoheader>
-                <div :class="{'all' : filter === 'all' , 'done' : filter === 'done' , 'undone' : filter === 'undone'}">
-                    <button @click="filter = 'all'" >All</button>
-                    <button @click="filter = 'done'" >Done</button>
-                    <button @click="filter = 'undone'" >Undone</button>
-        </div>
+            <div :class="{'all' : filter === 'all' , 'done' : filter === 'done' , 'undone' : filter === 'undone'}">
+                <button @click="filter = 'all'" >All</button>
+                <button @click="filter = 'done'" >Done</button>
+                <button @click="filter = 'undone'" >Undone</button>
+            </div>
+        
+
             <todoinput v-bind:propsinput="inputbtn" v-on:addtodo="addtodo" v-on:editfinish="editfinish"></todoinput>
             <!--todoItems의 데이터를 todolist 컴포넌트로 props-->
-            <todolist v-bind:propsdata="todos" v-on:removetodo="removetodo" v-on:edittodo="edittodo" v-on:editinput="editinput" v-on:cleartodo="clearAll"></todolist>
+            <todolist v-bind:propsdata="todos" v-bind:propsfilter="filter" v-on:removetodo="removetodo" v-on:edittodo="edittodo" v-on:editinput="editinput" v-on:cleartodo="clearAll"></todolist>
           
             <div>id값 : {{$store.state.id}}</div>
             <div>등록된글 : {{$store.state.newTodoItem}}</div>
+          
         </div>
 
         <script>
@@ -70,7 +72,7 @@
             //Create Vue Instance
             const app = Vue.createApp({
                 data() {
-                    return {todos: [], inputbtn: false };
+                    return {todos: [], inputbtn: false, filter : 'all'};
                 },
                 created() {
                     this.todos = todoStorage.fetch();
@@ -98,7 +100,8 @@
                         const inputdata = ({
                             id: todoStorage.uid++,
                             item: value,
-                            date: time
+                            date: time,
+                            condition: true,
                         });
                         this
                             .todos

@@ -2,12 +2,11 @@ table, th, td{
   margin : 10px;
   border: 1px solid black;
   border-collapse: collapse;
-  padding : 10px;
+  padding : 5px;
   text-align: center;
 }
 button{
-  margin : 10px;
-   
+  margin : 5px;
   box-shadow:inset 0px 1px 0px 0px #97c4fe;
 	background:linear-gradient(to bottom, #5da4f5 5%, #71a1ee 100%);
 	background-color:#569ef1;
@@ -31,11 +30,19 @@ button:active {
 	position:relative;
 	top:1px;
 }
-
 #inputtrue{
   background-color: #91c4ff;
 }
 input{
   margin : 10px;
   height: 25px;
+}
+.all{
+  background-color: #91c4ff;
+}
+.done{
+  background-color: #91ffbf;
+}
+.undone{
+  background-color: #fca1e5;
 }
