@@ -21,9 +21,9 @@
         <div id="app">
             <todoheader></todoheader>
             <div :class="{'all' : filter === 'all' , 'done' : filter === 'done' , 'undone' : filter === 'undone'}">
-                <button id="allbtn" @click="filter = 'all'" >All</button>
-                <button id="donebtn" @click="filter = 'done'" >Done</button>
-                <button id="undonebtn" @click="filter = 'undone'" >Undone</button>
+                <button id="allbtn" @click="filter = 'all'" >전체</button>
+                <button id="donebtn" @click="filter = 'done'" >완료</button>
+                <button id="undonebtn" @click="filter = 'undone'" >진행중</button>
             </div>
         
 
