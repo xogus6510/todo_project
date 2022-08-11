@@ -25,12 +25,8 @@
                 <button id="donebtn" @click="filter = 'done'" >완료</button>
                 <button id="undonebtn" @click="filter = 'undone'" >진행중</button>
             </div>
-        
-
             <todoinput v-bind:propsinput="inputbtn" v-on:addtodo="addtodo" v-on:editfinish="editfinish"></todoinput>
-            <!--todoItems의 데이터를 todolist 컴포넌트로 props-->
             <todolist v-bind:propsdata="todos" v-bind:propsfilter="filter" v-on:changecondition="changecondition" v-on:removetodo="removetodo" v-on:edittodo="edittodo" v-on:editinput="editinput" v-on:cleartodo="clearAll"></todolist>
-          
         </div>
 
         <script>
