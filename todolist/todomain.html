@@ -20,41 +20,50 @@
 
         <div id="app">
             <todoheader></todoheader>
+            <!--클릭 시 필터 변경-->
             <div :class="{'all' : filter === 'all' , 'done' : filter === 'done' , 'undone' : filter === 'undone'}">
                 <button id="allbtn" @click="filter = 'all'" >전체</button>
                 <button id="donebtn" @click="filter = 'done'" >완료</button>
                 <button id="undonebtn" @click="filter = 'undone'" >진행중</button>
             </div>
-            <todoinput v-bind:propsinput="inputbtn" v-on:addtodo="addtodo" v-on:editfinish="editfinish"></todoinput>
-            <todolist v-bind:propsdata="todos" v-bind:propsfilter="filter" v-on:changecondition="changecondition" v-on:removetodo="removetodo" v-on:edittodo="edittodo" v-on:editinput="editinput" v-on:cleartodo="clearAll"></todolist>
+            <!--inputbtn, props로 전달-->
+            <todoinput :propsinput="inputbtn" @addtodo="addtodo" @editfinish="editfinish"></todoinput>
+            <!--todos, props로 전달-->
+            <todolist :propsdata="todos" :propsfilter="filter" 
+            @changecondition="changecondition" @removetodo="removetodo" @edittodo="edittodo" @cleartodo="clearAll"></todolist>
         </div>
 
         <script>
-            //Local Storage에서 JSON 형식으로 입출력
+            //Local Storage에서 JSON 형식으로 입력
             var STORAGE_KEY = 'todolist'
             var todoStorage = {
+                //Local Storage에서 읽어오기
                 fetch: function () {
                     var todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
                     todos.forEach(function (todo, index) {
+                        //fetch실행 될때, id를 인덱스로 적용하여 저장
                         todo.id = index
                     })
                     todoStorage.uid = todos.length
                     return todos
                 },
+                //Local Storage에 저장하기
                 save: function (todos) {
                     localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
                 }
             }
 
-            //vuex 생성
+            //Vuex 적용하기
              const store = new Vuex.Store({
                 state: {
                     newTodoItem: '', id: '초기id'
                 },
                 mutations: {
+                    //수정 버튼 클릭 시 입력 텍스트 업데이트
                     editvalue(state, value){
                         state.newTodoItem = value
                     },
+                    //수정 버튼 클릭 시 입력 id 업데이트
                     editid(state, id){
                         state.id = id
                     }
@@ -68,10 +77,11 @@
                     return {todos: [], inputbtn: false, filter : 'all'};
                 },
                 created() {
+                    //created 될때 fetch()실행
                     this.todos = todoStorage.fetch();
                 },
+                //todo의 값이 변경될 때 마다, save()실행
                 watch: {
-                    // 옵션을 사용하는 경우, 객체 형식으로 지정합니다.
                     todos: {
                         // 매개 변수로는 속성의 변경 후 값이 들어옵니다.
                         handler: function (todos) {
@@ -89,7 +99,9 @@
                             .toISOString()
                             .replace("T", " ")
                             .replace(/\..*/, '');
+
                         console.log('addtodo 함수실행' + value);
+
                         const inputdata = ({
                             id: todoStorage.uid++,
                             item: value,
@@ -100,32 +112,31 @@
                             .todos
                             .push(JSON.parse(JSON.stringify(inputdata)));
                     },
-                    //로컬스토리지에서 삭제하는 함수
+                    //목록에서 삭제버튼 클릭시, 로컬스토리지에서 삭제
                     removetodo(todoItem) {
-                        var index = this
-                            .todos
-                            .indexOf(todoItem)
+                        //클릭한 위치의 index를 index에 저장
+                        var index = this.todos.indexOf(todoItem)
+                        //todos에서 index에 있는 값을 삭제
+                        this.todos.splice(index, 1)
+
                         console.log(index + "= index," + todoItem + "= todoItem");
-                        this
-                            .todos
-                            .splice(index, 1)
                     },
+                    //로컬스토리지 전체 삭제, todoItems 초기화
                     clearAll() {
-                        //로컬스토리지 전체 삭제, todoItems 초기화
                         this.todos = [];
                     },
+                    //목록에서 수정버튼 클릭 시, inputbtn를 true로 변경
                     edittodo(todoItem){
                         console.log('edit 함수실행' + todoItem);
                         this.inputbtn = true;
                     },
+                    //input태그 수정 버튼 클릭 시 todos의 item을 업데이트, inputbtn을 false로 변경
                     editfinish(todoItem){
                         console.log('editfinish 함수실행' + this.$store.state.id +":" + this.$store.state.newTodoItem);
                         this.todos[this.$store.state.id].item = this.$store.state.newTodoItem
                         this.inputbtn = false;
                     },
-                    editinput(todoItem){
-                        console.log('editinput 함수실행' + todoItem);
-                    },
+                    //할 일 클릭 시 스토어에 업데이트된 id의 condition 변경
                     changecondition(todoItem){
                         console.log('함수실행');
                         this.todos[this.$store.state.id].condition = !todoItem.condition
@@ -144,6 +155,3 @@
 
     </body>
 </html>
-<!-- https://code-hoon.tistory.com/194 글 제목 [ Vue.js ] LocalStorage 이용하는 방법,
-예제-->
-<!-- https://nykim.work/75 [Vue/Vuex] 뷰 실습 - Todo 웹앱 만들기 -->

@@ -16,7 +16,7 @@ const Todolist = {
             </tr>
             <tr>
                 <td colspan='4'>
-                    <button type="button" v-on:click="clearTodo">전체삭제</button>
+                    <button type="button" @click="clearTodo">전체삭제</button>
                 </td>
             </tr>
         </table>
@@ -24,20 +24,23 @@ const Todolist = {
   `,
     props: ['propsdata', 'propsfilter'],
     methods: {
+        //삭제 버튼 클릭시, removetodo 실행
         removetodo(todoItem) {
             console.log('삭제클릭 emit, ' + todoItem + "=id");
             this.$emit('removetodo', todoItem);
         },
+        //수정버튼 클릭시, todoItem과 id를 스토어에 업데이트 + edittodo 실행
         edittodo(todoItem, id) {
             store.commit('editvalue', todoItem);
             store.commit('editid', id);
             console.log('수정클릭 emit, ' + id + "=id");
             this.$emit('edittodo', todoItem);
-            this.$emit('editinput', todoItem);
         },
+        //전체삭제
         clearTodo() {
             this.$emit('cleartodo');
         },
+        //할 일 클릭 시 condition 변경, 스토어에 id 업데이트 + changeCondition 실행
         changeCondition(todoItem, id) {
            console.log("todoItem.condition : " + todoItem.condition + " todoItem.id : " + id);
            store.commit('editid', id);
